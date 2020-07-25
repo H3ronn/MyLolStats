@@ -1,75 +1,59 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import Card from "../Components/Molecules/Card";
-import Neeko from "../Assets/champions/Neeko.png";
+import Card from "Components/Molecules/Card";
+import Neeko from "Assets/champions/Neeko.png";
+import Heading from "Components/Atoms/Heading/Heading";
+import Paragraph from "Components/Atoms/Paragraph/Paragraph";
+import Input from "Components/Atoms/Input/Input";
+import { LeagueNames as Names } from "ChampionsNames";
+
+console.log(Names);
 
 const StyledWrapper = styled.div`
   /* background-color: #f1f1f1; */
   text-align: center;
+  min-height: 100vh;
 `;
 
 const StyledCardWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
-  margin: 0 100px;
+  justify-content: space-around;
+  margin: 0 20px;
 `;
 
-const StyledH1 = styled.h1`
-  color: white;
-  text-shadow: 0px 0px 15px black;
-  font-size: 40px;
-  padding: 30px 0;
-`;
-
-const StyledP = styled.p`
-  color: white;
-  padding: 0 0 30px;
-  text-shadow: 0px 0px 15px black;
-  font-size: 30px;
-`;
-
-const StyledInput = styled.input`
-  background-color: #fff5d7;
-  border: none;
-  width: 50vw;
-  height: 35px;
-  font-size: 25px;
-  text-align: center;
-  color: white;
-  border-radius: 20px;
-  text-shadow: 0px 0px 15px black;
+const StyledInput = styled(Input)`
   margin-bottom: 50px;
 `;
 
 const ChampionsView = () => {
+  const [inputValue, setInputValue] = useState("");
+
+  const changeInputValue = (e) => {
+    setInputValue(e.target.value);
+    console.log(inputValue);
+  };
+
   return (
     <StyledWrapper>
-      <StyledH1>Wyszukaj informacje o swoim ulubionym championie</StyledH1>
-      <StyledP>Wpisz nazwe championa</StyledP>
-      <StyledInput type="text" name="nickname" />
+      <Heading>Wyszukaj informacje o swoim ulubionym championie</Heading>
+      <Paragraph>Wpisz nazwe championa</Paragraph>
+      <StyledInput
+        type="text"
+        name="nickname"
+        placeholder="np. Teemo"
+        value={inputValue}
+        onChange={changeInputValue}
+      />
       <StyledCardWrapper>
-        <Card image={Neeko} />
-        <Card image={Neeko} />
-        <Card image={Neeko} />
-        <Card image={Neeko} />
-        <Card image={Neeko} />
-        <Card image={Neeko} />
-        <Card image={Neeko} />
-        <Card image={Neeko} />
-        <Card image={Neeko} />
-        <Card image={Neeko} />
-        <Card image={Neeko} />
-        <Card image={Neeko} />
-        <Card image={Neeko} />
-        <Card image={Neeko} />
-        <Card image={Neeko} />
-        <Card image={Neeko} />
-        <Card image={Neeko} />
-        <Card image={Neeko} />
-        <Card image={Neeko} />
-        <Card image={Neeko} />
-        <Card image={Neeko} />
+        {Names.map((championName) => (
+          <Card
+            image={`/champions/${championName}.png`}
+            key={championName}
+            name={championName}
+            searchValue={inputValue}
+          />
+        ))}
       </StyledCardWrapper>
     </StyledWrapper>
   );

@@ -1,5 +1,5 @@
 import React from "react";
-import Navigation from "../Components/Organisms/Navigation";
+import Navigation from "Components/Organisms/Navigation";
 import styled from "styled-components";
 
 const StyledWrapper = styled.div`
