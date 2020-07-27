@@ -14,6 +14,7 @@ const StyledNav = styled.nav`
   align-items: center;
   box-shadow: 0px 0px 10px 4px #feb300;
   background-color: #fff5d7;
+  z-index: 5;
 `;
 
 const StyledUl = styled.ul`

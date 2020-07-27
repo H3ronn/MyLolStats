@@ -1,13 +1,10 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import Card from "Components/Molecules/Card";
-import Neeko from "Assets/champions/Neeko.png";
 import Heading from "Components/Atoms/Heading/Heading";
 import Paragraph from "Components/Atoms/Paragraph/Paragraph";
 import Input from "Components/Atoms/Input/Input";
 import { LeagueNames as Names } from "ChampionsNames";
-
-console.log(Names);
 
 const StyledWrapper = styled.div`
   /* background-color: #f1f1f1; */
@@ -48,7 +45,7 @@ const ChampionsView = () => {
       <StyledCardWrapper>
         {Names.map((championName) => (
           <Card
-            image={`/champions/${championName}.png`}
+            image={`/avatars/${championName}.png`}
             key={championName}
             name={championName}
             searchValue={inputValue}

@@ -4,6 +4,7 @@ import ChampionsView from "./ChampionsView";
 import ChampionDetails from "./ChampionDetails";
 import SearchView from "./SearchView";
 import MainTemplate from "../Templates/MainTemplate";
+import UserDetailsView from "Views/UserDetailsView";
 
 function Root() {
   return (
@@ -11,7 +12,8 @@ function Root() {
       <MainTemplate>
         <Switch>
           <Route exact path="/" render={() => <Redirect to="/champions" />} />
-          <Route path="/search" component={SearchView} />
+          <Route exact path="/search" component={SearchView} />
+          <Route path="/search/:name" component={UserDetailsView} />
           <Route exact path="/champions" component={ChampionsView} />
           <Route path="/champions/:name" component={ChampionDetails} />
         </Switch>
