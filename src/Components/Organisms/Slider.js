@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Siema from "siema";
 import Button from "Components/Atoms/Button/Button";
@@ -12,22 +12,24 @@ const StyledImg = styled.img`
 `;
 
 const StyledWrapper = styled.div`
-  width: 20vw;
+  /* width: 20vw; */
   display: flex;
   align-items: center;
-  flex-direction: column;
+  /* flex-direction: column; */
 `;
 
 const StyledDiv = styled.div`
-  width: 20vw;
+  width: 355px;
+  max-height: calc(100vh - 80px);
+  background-color: #fff5d7;
+  box-shadow: 0px 0px 10px 4px #fff5d7;
 `;
 
-const Slider = () => {
-  let siema;
+const Slider = ({ skins, name }) => {
+  const [siema, setSiema] = useState({});
   useEffect(() => {
-    siema = new Siema();
-    console.log(siema.next);
-  });
+    setSiema(new Siema());
+  }, []);
 
   const next = () => {
     siema.next();
@@ -38,20 +40,32 @@ const Slider = () => {
   };
   return (
     <StyledWrapper>
+      {console.log(Array.isArray(skins))}
+      <Button className="prev" onClick={() => prev()}>
+        &larr;
+      </Button>
       <StyledDiv className="siema">
-        <StyledImg src={nekko1} alt="" />
+        {/* {Array.isArray(skins) && skins.map(skin => (
+          <StyledImg src={`/champions/${name}_${skin.num}.jpg`} key={skin.num} alt="" />
+        ))} */}
+        {/* {() => {
+          return (
+            <>
+              <StyledImg src="/champions/Neeko_0.jpg" alt="" />
+              <StyledImg src={nekko2} alt="" />
+              <StyledImg src={nekko3} alt="" />
+              <StyledImg src={nekko4} alt="" />
+            </>
+          )
+        }} */}
+        <StyledImg src="/champions/Neeko_0.jpg" alt="" />
         <StyledImg src={nekko2} alt="" />
         <StyledImg src={nekko3} alt="" />
         <StyledImg src={nekko4} alt="" />
       </StyledDiv>
-      <div>
-        <Button className="prev" onClick={() => prev()}>
-          Prev
-        </Button>
-        <Button className="next" onClick={() => next()}>
-          Next
-        </Button>
-      </div>
+      <Button className="next" onClick={() => next()}>
+        &rarr;
+      </Button>
     </StyledWrapper>
   );
 };

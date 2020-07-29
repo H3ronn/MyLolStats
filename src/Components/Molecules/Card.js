@@ -19,7 +19,7 @@ const Card = ({ image, name, searchValue }) => {
   const viewDetails = () => setRedirect(true);
 
   if (redirect) {
-    return <Redirect to="/champions/champName" />;
+    return <Redirect to={`/champions/${name.toLowerCase()}`} />;
   }
 
   if (name.toLowerCase().includes(searchValue.toLowerCase())) {

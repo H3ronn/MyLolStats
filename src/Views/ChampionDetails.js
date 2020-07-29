@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Heading from "Components/Atoms/Heading/Heading";
 import Paragraph from "Components/Atoms/Paragraph/Paragraph";
-import nekko from "Assets/Neeko_0.jpg";
 import Slider from "Components/Organisms/Slider";
+import axios from "axios";
+import { LeagueNames as Names } from "ChampionsNames";
 
 const StyledWrapper = styled.div`
   height: 100%;
@@ -12,27 +13,86 @@ const StyledWrapper = styled.div`
   align-items: center;
 `;
 
-const UpperWrapper = styled.div`
+const StyledParagraph = styled(Paragraph)`
+  font-size: 15px;
+  font-weight: 500;
+  padding: 0 10px 10px;
+`;
+
+const StyledHeading = styled(Heading)`
+  padding: 10px 0 0;
+`;
+
+const StyledCategories = styled.div`
   display: flex;
 `;
 
-const ChampionDetails = () => {
+const StyledDescription = styled(Paragraph)`
+  width: 80vw;
+`;
+
+// const UpperWrapper = styled.div`
+//   display: flex;
+// `;
+
+const ChampionDetails = ({ match }) => {
+  const {
+    params: { name },
+  } = match;
+
+  const [fetchQuery] = Names.filter((champname) =>
+    champname.toLowerCase().includes(name)
+  );
+
+  const [informations, setInformations] = useState({});
+  const [skins, setSkins] = useState({});
+
+  const getInformations = (query) => {
+
+    axios
+      .get(
+        `http://ddragon.leagueoflegends.com/cdn/10.15.1/data/en_US/champion/${query}.json`
+      )
+      .then((result) => {
+        const informations = result.data.data[fetchQuery];
+        setInformations(informations);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const getInformations2 = async (query) => {
+    if (query === "Wukong") { query = "MonkeyKing"; }
+    try {
+      const fetchInformations = await axios.get(
+        `http://ddragon.leagueoflegends.com/cdn/10.15.1/data/en_US/champion/${query}.json`
+      );
+      setInformations(fetchInformations.data.data[query]);
+      setSkins(fetchInformations.data.data[query].skins);
+      // console.log(informations);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    // getInformations(fetchQuery);
+    getInformations2(fetchQuery);
+  }, [fetchQuery]);
+
   return (
     <StyledWrapper>
-      <Heading>Nekko</Heading>
-      <Slider />
-      <Paragraph>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Et hunc idem
-        dico, inquieta sed ad virtutes et ad vitia nihil interesse. Itaque
-        nostrum est-quod nostrum dico, artis est-ad ea principia, quae
-        accepimus. Quod, inquit, quamquam voluptatibus quibusdam est saepe
-        iucundius, tamen expetitur propter voluptatem. Esse enim quam vellet
-        iniquus iustus poterat inpune. Duo Reges: constructio interrete. Non
-        quam nostram quidem, inquit Pomponius iocans; Itaque eos id agere, ut a
-        se dolores, morbos, debilitates repellant. Sint modo partes vitae
-        beatae. Perge porro; Sin tantum modo ad indicia veteris memoriae
-        cognoscenda, curiosorum.
-      </Paragraph>
+      {console.log(skins)}
+      <StyledHeading>{informations.id === "MonkeyKing" ? "Wukong" : informations.id}</StyledHeading>
+      <StyledParagraph>{informations.title}</StyledParagraph>
+      <Slider skins={skins} name={fetchQuery === "Wukong" ? "MonkeyKing" : fetchQuery} />
+      <StyledCategories>
+        {informations.tags && informations.tags.map(role => (
+          <StyledParagraph key={role}>{role}</StyledParagraph>
+        ))}
+      </StyledCategories>
+      <StyledDescription>{informations.lore}</StyledDescription>
     </StyledWrapper>
   );
 };
