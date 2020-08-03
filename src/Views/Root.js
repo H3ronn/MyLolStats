@@ -5,6 +5,8 @@ import ChampionDetails from "./ChampionDetails";
 import SearchView from "./SearchView";
 import MainTemplate from "../Templates/MainTemplate";
 import UserDetailsView from "Views/UserDetailsView";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 function Root() {
   return (

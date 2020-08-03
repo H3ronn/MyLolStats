@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Heading from "Components/Atoms/Heading/Heading";
 import Paragraph from "Components/Atoms/Paragraph/Paragraph";
-import Slider from "Components/Organisms/Slider";
+import SimpleSlider from "Components/Organisms/SimpleSlider";
 import axios from "axios";
 import { LeagueNames as Names } from "ChampionsNames";
 
@@ -29,6 +29,12 @@ const StyledCategories = styled.div`
 
 const StyledDescription = styled(Paragraph)`
   width: 80vw;
+`;
+
+const StyledSliderContainer = styled.div`
+  /* width: 50vw;
+  height: 50vh; */
+  
 `;
 
 // const UpperWrapper = styled.div`
@@ -86,7 +92,7 @@ const ChampionDetails = ({ match }) => {
       {console.log(skins)}
       <StyledHeading>{informations.id === "MonkeyKing" ? "Wukong" : informations.id}</StyledHeading>
       <StyledParagraph>{informations.title}</StyledParagraph>
-      <Slider skins={skins} name={fetchQuery === "Wukong" ? "MonkeyKing" : fetchQuery} />
+      <SimpleSlider />
       <StyledCategories>
         {informations.tags && informations.tags.map(role => (
           <StyledParagraph key={role}>{role}</StyledParagraph>
@@ -95,6 +101,9 @@ const ChampionDetails = ({ match }) => {
       <StyledDescription>{informations.lore}</StyledDescription>
     </StyledWrapper>
   );
+  // return (
+  //   <MainSlider />
+  // );
 };
 
 export default ChampionDetails;
