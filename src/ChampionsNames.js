@@ -47,7 +47,7 @@ export const LeagueNames = [
   "Jayce",
   "Jhin",
   "Jinx",
-  "KaiSa",
+  "Kaisa",
   "Kalista",
   "Karma",
   "Karthus",

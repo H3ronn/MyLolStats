@@ -51,7 +51,7 @@ const ChampionDetails = ({ match }) => {
   );
 
   const [informations, setInformations] = useState({});
-  const [skins, setSkins] = useState({});
+  const [skins, setSkins] = useState();
 
   const getInformations = (query) => {
 
@@ -89,10 +89,10 @@ const ChampionDetails = ({ match }) => {
 
   return (
     <StyledWrapper>
-      {console.log(skins)}
-      <StyledHeading>{informations.id === "MonkeyKing" ? "Wukong" : informations.id}</StyledHeading>
+      {console.log(informations)}
+      <StyledHeading>{informations.name}</StyledHeading>
       <StyledParagraph>{informations.title}</StyledParagraph>
-      <SimpleSlider />
+      <SimpleSlider skins={skins} championId={informations.id === "Wukong" ? "MonkeyKing" : informations.id} />
       <StyledCategories>
         {informations.tags && informations.tags.map(role => (
           <StyledParagraph key={role}>{role}</StyledParagraph>

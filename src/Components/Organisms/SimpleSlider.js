@@ -8,6 +8,7 @@ const StyledAll = styled.div`
 `;
 
 const StyledWapper = styled.div`
+  /* width: 670px; */
   width: 335px;
   margin: 0 auto;
 `;
@@ -23,9 +24,13 @@ const StyledImgContainer = styled.div`
   width: 335px;
 `;
 
-const SimpleSlider = () => {
+const SimpleSlider = ({ skins, championId }) => {
+  // const [skinNumbers, setSkinNumbers] = useState(skins.num);
+  // console.log(skinNumbers)
 
-  var settings = {
+
+
+  const settings = {
     // dots: true,
     arrows: true,
     infinite: true,
@@ -34,21 +39,40 @@ const SimpleSlider = () => {
     slidesToScroll: 1,
     // variableWidth: true,
     centerPadding: "20px"
-
   }
   return (
     <StyledAll>
 
       <StyledWapper>
         <Slider {...settings}>
+
           <div>
             <StyledImgContainer>
-              <StyledImg src="/champions/Ahri_1.jpg" />
+              <StyledImg src={`/champions/${championId}_0.jpg`} />
+            </StyledImgContainer>
+          </div>
+
+          {skins && skins.map(skin => {
+            //Takie obejcie bo slider zaczynał od ostatniego elementu zamiast od pierwszego
+            if (skin.num === 0) return
+            console.log(championId)
+            return (
+              <div>
+                <StyledImgContainer>
+                  <StyledImg src={`/champions/${championId}_${skin.num}.jpg`} />
+                </StyledImgContainer>
+              </div>
+            )
+          })}
+
+          {/* <div>
+            <StyledImgContainer>
+              <StyledImg src="/champions/Ahri_0.jpg" />
             </StyledImgContainer>
           </div>
           <div>
             <StyledImgContainer>
-              <StyledImg src="/champions/Ahri_0.jpg" />
+              <StyledImg src="/champions/Ahri_1.jpg" />
             </StyledImgContainer>
           </div>
           <div>
@@ -70,10 +94,10 @@ const SimpleSlider = () => {
             <StyledImgContainer>
               <StyledImg src="/champions/Ahri_5.jpg" />
             </StyledImgContainer>
-          </div>
+          </div> */}
         </Slider >
       </StyledWapper>
-    </StyledAll>
+    </StyledAll >
   );
 }
 
