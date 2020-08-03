@@ -1,16 +1,30 @@
 import React, { useEffect, useState } from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import Heading from "Components/Atoms/Heading/Heading";
 import Paragraph from "Components/Atoms/Paragraph/Paragraph";
 import SimpleSlider from "Components/Organisms/SimpleSlider";
 import axios from "axios";
 import { LeagueNames as Names } from "ChampionsNames";
+import LoadingPage from 'Components/Molecules/LoadingPage';
+
+const appearance = keyframes`
+  from {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+`;
 
 const StyledWrapper = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  animation: ${appearance} .5s;
 `;
 
 const StyledParagraph = styled(Paragraph)`
@@ -53,6 +67,7 @@ const ChampionDetails = ({ match }) => {
   const [informations, setInformations] = useState({});
   const [stats, setStats] = useState({});
   const [skins, setSkins] = useState();
+  const [loading, setLoading] = useState(true);
 
   // const getInformations2 = (query) => {
 
@@ -78,6 +93,9 @@ const ChampionDetails = ({ match }) => {
       setInformations(fetchInformations.data.data[query]);
       setStats(fetchInformations.data.data[query].stats)
       setSkins(fetchInformations.data.data[query].skins);
+      setTimeout(() => {
+        setLoading(false);
+      }, 2000);
       // console.log(informations);
     } catch (error) {
       console.log(error);
@@ -90,22 +108,25 @@ const ChampionDetails = ({ match }) => {
   }, [fetchQuery]);
 
   return (
-    <StyledWrapper>
-      {console.log(informations)}
-      <StyledHeading>{informations.name}</StyledHeading>
-      <StyledParagraph>{informations.title}</StyledParagraph>
-      <SimpleSlider skins={skins} championId={informations.id} />
-      <StyledCategories>
-        {informations.tags && informations.tags.map(role => (
-          <StyledParagraph key={role}>{role}</StyledParagraph>
-        ))}
-      </StyledCategories>
-      <StyledDescription>{informations.lore}</StyledDescription>
-      <div>
-        <Heading>Statystki</Heading>
-        {Object.keys(stats).map(key => (<Paragraph>{key} : {stats[key]}</Paragraph>))}
-      </div>
-    </StyledWrapper>
+    <>
+      {loading ? (<LoadingPage />) : (
+        <StyledWrapper>
+          <StyledHeading>{informations.name}</StyledHeading>
+          <StyledParagraph>{informations.title}</StyledParagraph>
+          <SimpleSlider skins={skins} championId={informations.id} />
+          <StyledCategories>
+            {informations.tags && informations.tags.map(role => (
+              <StyledParagraph key={role}>{role}</StyledParagraph>
+            ))}
+          </StyledCategories>
+          <StyledDescription>{informations.lore}</StyledDescription>
+          <div>
+            <Heading>Statystki</Heading>
+            {Object.keys(stats).map(key => (<Paragraph>{key} : {stats[key]}</Paragraph>))}
+          </div>
+        </StyledWrapper>)}
+
+    </>
   );
 };
 

@@ -5,6 +5,7 @@ import ChampionDetails from "./ChampionDetails";
 import SearchView from "./SearchView";
 import MainTemplate from "../Templates/MainTemplate";
 import UserDetailsView from "Views/UserDetailsView";
+import LoadingPage from "Components/Molecules/LoadingPage";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
@@ -18,6 +19,7 @@ function Root() {
           <Route path="/search/:name" component={UserDetailsView} />
           <Route exact path="/champions" component={ChampionsView} />
           <Route path="/champions/:name" component={ChampionDetails} />
+          <Route path="/test" component={LoadingPage} />
         </Switch>
       </MainTemplate>
     </BrowserRouter>
