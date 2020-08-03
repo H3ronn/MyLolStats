@@ -21,7 +21,14 @@ const StyledImgContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
   width: 335px;
+`;
+
+const StyledLabel = styled.label`
+  color: white;
+  text-shadow: 0px 0px 10px black;
+  padding: 5px;
 `;
 
 const SimpleSlider = ({ skins, championId }) => {
@@ -49,6 +56,7 @@ const SimpleSlider = ({ skins, championId }) => {
           <div>
             <StyledImgContainer>
               <StyledImg src={`/champions/${championId}_0.jpg`} />
+              <StyledLabel>Podstawowy</StyledLabel>
             </StyledImgContainer>
           </div>
 
@@ -60,6 +68,7 @@ const SimpleSlider = ({ skins, championId }) => {
               <div>
                 <StyledImgContainer>
                   <StyledImg src={`/champions/${championId}_${skin.num}.jpg`} />
+                  <StyledLabel>{skin.name}</StyledLabel>
                 </StyledImgContainer>
               </div>
             )

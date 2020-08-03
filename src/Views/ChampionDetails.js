@@ -16,7 +16,7 @@ const StyledWrapper = styled.div`
 const StyledParagraph = styled(Paragraph)`
   font-size: 15px;
   font-weight: 500;
-  padding: 0 10px 10px;
+  padding: 10px 10px 20px;
 `;
 
 const StyledHeading = styled(Heading)`
@@ -51,30 +51,32 @@ const ChampionDetails = ({ match }) => {
   );
 
   const [informations, setInformations] = useState({});
+  const [stats, setStats] = useState({});
   const [skins, setSkins] = useState();
 
-  const getInformations = (query) => {
+  // const getInformations2 = (query) => {
 
-    axios
-      .get(
-        `http://ddragon.leagueoflegends.com/cdn/10.15.1/data/en_US/champion/${query}.json`
-      )
-      .then((result) => {
-        const informations = result.data.data[fetchQuery];
-        setInformations(informations);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+  //   axios
+  //     .get(
+  //       `http://ddragon.leagueoflegends.com/cdn/10.15.1/data/en_US/champion/${query}.json`
+  //     )
+  //     .then((result) => {
+  //       const informations = result.data.data[fetchQuery];
+  //       setInformations(informations);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // };
 
-  const getInformations2 = async (query) => {
+  const getInformations = async (query) => {
     if (query === "Wukong") { query = "MonkeyKing"; }
     try {
       const fetchInformations = await axios.get(
-        `http://ddragon.leagueoflegends.com/cdn/10.15.1/data/en_US/champion/${query}.json`
+        `http://ddragon.leagueoflegends.com/cdn/10.15.1/data/pl_PL/champion/${query}.json`
       );
       setInformations(fetchInformations.data.data[query]);
+      setStats(fetchInformations.data.data[query].stats)
       setSkins(fetchInformations.data.data[query].skins);
       // console.log(informations);
     } catch (error) {
@@ -83,8 +85,8 @@ const ChampionDetails = ({ match }) => {
   };
 
   useEffect(() => {
-    // getInformations(fetchQuery);
-    getInformations2(fetchQuery);
+    // getInformations2(fetchQuery);
+    getInformations(fetchQuery);
   }, [fetchQuery]);
 
   return (
@@ -92,18 +94,19 @@ const ChampionDetails = ({ match }) => {
       {console.log(informations)}
       <StyledHeading>{informations.name}</StyledHeading>
       <StyledParagraph>{informations.title}</StyledParagraph>
-      <SimpleSlider skins={skins} championId={informations.id === "Wukong" ? "MonkeyKing" : informations.id} />
+      <SimpleSlider skins={skins} championId={informations.id} />
       <StyledCategories>
         {informations.tags && informations.tags.map(role => (
           <StyledParagraph key={role}>{role}</StyledParagraph>
         ))}
       </StyledCategories>
       <StyledDescription>{informations.lore}</StyledDescription>
+      <div>
+        <Heading>Statystki</Heading>
+        {Object.keys(stats).map(key => (<Paragraph>{key} : {stats[key]}</Paragraph>))}
+      </div>
     </StyledWrapper>
   );
-  // return (
-  //   <MainSlider />
-  // );
 };
 
 export default ChampionDetails;
