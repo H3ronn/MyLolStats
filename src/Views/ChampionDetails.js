@@ -122,7 +122,7 @@ const ChampionDetails = ({ match }) => {
           <StyledDescription>{informations.lore}</StyledDescription>
           <div>
             <Heading>Statystki</Heading>
-            {Object.keys(stats).map(key => (<Paragraph>{key} : {stats[key]}</Paragraph>))}
+            {Object.keys(stats).map(key => (<Paragraph key={key}>{key} : {stats[key]}</Paragraph>))}
           </div>
         </StyledWrapper>)}
 

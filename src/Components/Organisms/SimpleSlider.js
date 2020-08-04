@@ -65,8 +65,8 @@ const SimpleSlider = ({ skins, championId }) => {
             if (skin.num === 0) return null
             console.log(championId)
             return (
-              <div>
-                <StyledImgContainer>
+              <div key={skin.id}>
+                <StyledImgContainer >
                   <StyledImg src={`/champions/${championId}_${skin.num}.jpg`} />
                   <StyledLabel>{skin.name}</StyledLabel>
                 </StyledImgContainer>
