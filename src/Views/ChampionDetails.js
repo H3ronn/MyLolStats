@@ -45,15 +45,6 @@ const StyledDescription = styled(Paragraph)`
   width: 80vw;
 `;
 
-const StyledSliderContainer = styled.div`
-  /* width: 50vw;
-  height: 50vh; */
-  
-`;
-
-// const UpperWrapper = styled.div`
-//   display: flex;
-// `;
 
 const ChampionDetails = ({ match }) => {
   const {

@@ -28,7 +28,6 @@ const ChampionsView = () => {
 
   const changeInputValue = (e) => {
     setInputValue(e.target.value);
-    console.log(inputValue);
   };
 
   return (

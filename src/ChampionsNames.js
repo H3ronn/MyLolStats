@@ -129,7 +129,7 @@ export const LeagueNames = [
   "Varus",
   "Vayne",
   "Veigar",
-  "VelKoz",
+  "Velkoz",
   "Vi",
   "Viktor",
   "Vladimir",

@@ -63,7 +63,7 @@ const SimpleSlider = ({ skins, championId }) => {
           {skins && skins.map(skin => {
             //Takie obejcie bo slider zaczynał od ostatniego elementu zamiast od pierwszego
             if (skin.num === 0) return null
-            console.log(championId)
+
             return (
               <div key={skin.id}>
                 <StyledImgContainer >

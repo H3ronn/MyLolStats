@@ -49,7 +49,7 @@ const SearchView = () => {
     <StyledWrapper>
       <Heading>Sprawdz swoje statystki w grze League of legends</Heading>
       <Paragraph>Wpisz swoją nazwę z gry</Paragraph>
-      <Input type="text" name="nickname" placeholder="Twój nick" />
+      <Input type="text" name="nickname" placeholder="Twój nickxxx" />
     </StyledWrapper>
   );
 };
