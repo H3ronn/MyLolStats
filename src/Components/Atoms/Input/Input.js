@@ -4,6 +4,7 @@ const Input = styled.input`
   background-color: #fff5d7;
   border: none;
   width: 30vw;
+  min-width: 350px;
   height: 40px;
   font-size: 25px;
   text-align: center;

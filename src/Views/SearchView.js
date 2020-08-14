@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Heading from "Components/Atoms/Heading/Heading";
 import Paragraph from "Components/Atoms/Paragraph/Paragraph";
 import Input from "Components/Atoms/Input/Input";
+import Button from "Components/Atoms/Button/Button";
 import axios from "axios";
 
 const StyledWrapper = styled.div`
@@ -27,6 +28,7 @@ const SearchView = () => {
   //   .catch((err) => console.log(err));
 
   const apiTest = () => {
+    console.log("strzał do api");
     axios
       .get(
         "http://ddragon.leagueoflegends.com/cdn/10.15.1/data/en_US/champion.json"
@@ -44,12 +46,12 @@ const SearchView = () => {
       });
   };
 
-  apiTest();
   return (
     <StyledWrapper>
       <Heading>Sprawdz swoje statystki w grze League of legends</Heading>
       <Paragraph>Wpisz swoją nazwę z gry</Paragraph>
       <Input type="text" name="nickname" placeholder="Twój nickxxx" />
+      <Button onClick={() => apiTest()}>Wyszukaj</Button>
     </StyledWrapper>
   );
 };

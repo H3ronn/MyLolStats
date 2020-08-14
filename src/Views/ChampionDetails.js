@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useReducer } from "react";
 import styled, { keyframes } from "styled-components";
 import Heading from "Components/Atoms/Heading/Heading";
 import Paragraph from "Components/Atoms/Paragraph/Paragraph";
@@ -55,9 +55,14 @@ const ChampionDetails = ({ match }) => {
     champname.toLowerCase().includes(name)
   );
 
-  const [informations, setInformations] = useState({});
-  const [stats, setStats] = useState({});
-  const [skins, setSkins] = useState();
+  const [detailsContent, setDetailsContent] = useReducer((state, newState) => ({ ...state, ...newState }),
+    {
+      informations: "",
+      stats: "",
+      skins: "",
+      spells: ""
+    });
+
   const [loading, setLoading] = useState(true);
 
   // const getInformations2 = (query) => {
@@ -81,27 +86,33 @@ const ChampionDetails = ({ match }) => {
       const fetchInformations = await axios.get(
         `http://ddragon.leagueoflegends.com/cdn/10.15.1/data/pl_PL/champion/${query}.json`
       );
-      setInformations(fetchInformations.data.data[query]);
-      setStats(fetchInformations.data.data[query].stats)
-      setSkins(fetchInformations.data.data[query].skins);
-      setTimeout(() => {
-        setLoading(false);
-      }, 2000);
-      // console.log(informations);
+
+      setDetailsContent({
+        informations: fetchInformations.data.data[query],
+        spells: fetchInformations.data.data[query].spells,
+        stats: fetchInformations.data.data[query].stats,
+        skins: fetchInformations.data.data[query].skins,
+      });
+
+      setLoading(false);
+
     } catch (error) {
       console.log(error);
     }
   };
 
   useEffect(() => {
-    // getInformations2(fetchQuery);
     getInformations(fetchQuery);
   }, [fetchQuery]);
+
+
+  const { informations, spells, stats, skins } = detailsContent;
 
   return (
     <>
       {loading ? (<LoadingPage />) : (
         <StyledWrapper>
+          {console.log(detailsContent.informations)}
           <StyledHeading>{informations.name}</StyledHeading>
           <StyledParagraph>{informations.title}</StyledParagraph>
           <SimpleSlider skins={skins} championId={informations.id} />
@@ -111,6 +122,10 @@ const ChampionDetails = ({ match }) => {
             ))}
           </StyledCategories>
           <StyledDescription>{informations.lore}</StyledDescription>
+          <div>
+            <Heading>Umiejętności</Heading>
+
+          </div>
           <div>
             <Heading>Statystki</Heading>
             {Object.keys(stats).map(key => (<Paragraph key={key}>{key} : {stats[key]}</Paragraph>))}
