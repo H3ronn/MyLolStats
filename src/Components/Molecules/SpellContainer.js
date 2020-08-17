@@ -7,7 +7,7 @@ const StyledLi = styled.li`
 `;
 
 const SpellContainer = ({ passive = null, spell }) => (
-  <StyledLi><img src={`/spells/${spell.image.full}`} />{spell.description}{spell.cooldown && spell.cooldown.map(cd => `${cd} / `)}{console.log(spell)}</StyledLi>
+  <StyledLi><img src={`/spells/${spell.image.full}`} alt={spell.name} />{spell.description}{spell.cooldown && spell.cooldown.map(cd => `${cd} / `)}{console.log(spell)}</StyledLi>
 );
 
 export default SpellContainer;
