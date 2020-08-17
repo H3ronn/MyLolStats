@@ -1,13 +1,9 @@
-import React, { useEffect, useState, useReducer } from "react";
+import React from 'react';
 import styled, { keyframes } from "styled-components";
 import Heading from "Components/Atoms/Heading/Heading";
 import Paragraph from "Components/Atoms/Paragraph/Paragraph";
 import SimpleSlider from "Components/Organisms/SimpleSlider";
-import axios from "axios";
-import { LeagueNames as Names } from "ChampionsNames";
 import LoadingPage from 'Components/Molecules/LoadingPage';
-import SpellContainer from 'Components/Molecules/SpellContainer';
-import ChampionDetailsTemplate from 'Templates/ChampionDetailsTemplate';
 
 const appearance = keyframes`
   from {
@@ -48,64 +44,7 @@ const StyledDescription = styled(Paragraph)`
 `;
 
 
-const ChampionDetails = ({ match }) => {
-  const {
-    params: { name },
-  } = match;
-
-  const [fetchQuery] = Names.filter((champname) =>
-    champname.toLowerCase().includes(name)
-  );
-
-  const [detailsContent, setDetailsContent] = useReducer((state, newState) => ({ ...state, ...newState }),
-    {
-      informations: "",
-      stats: "",
-      skins: "",
-      spells: ""
-    });
-
-  const [loading, setLoading] = useState(true);
-
-  // const getInformations2 = (query) => {
-
-  //   axios
-  //     .get(
-  //       `http://ddragon.leagueoflegends.com/cdn/10.15.1/data/en_US/champion/${query}.json`
-  //     )
-  //     .then((result) => {
-  //       const informations = result.data.data[fetchQuery];
-  //       setInformations(informations);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // };
-
-  const getInformations = async (query) => {
-    if (query === "Wukong") { query = "MonkeyKing"; }
-    try {
-      const fetchInformations = await axios.get(
-        `http://ddragon.leagueoflegends.com/cdn/10.15.1/data/pl_PL/champion/${query}.json`
-      );
-
-      setDetailsContent({
-        informations: fetchInformations.data.data[query],
-        spells: fetchInformations.data.data[query].spells,
-        stats: fetchInformations.data.data[query].stats,
-        skins: fetchInformations.data.data[query].skins,
-      });
-
-      setLoading(false);
-
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    getInformations(fetchQuery);
-  }, [fetchQuery]);
+const ChampionDetailsTemplate = () => {
 
 
   const { informations, spells, stats, skins } = detailsContent;
@@ -143,4 +82,4 @@ const ChampionDetails = ({ match }) => {
   );
 };
 
-export default ChampionDetails;
+export default ChampionDetailsTemplate;
