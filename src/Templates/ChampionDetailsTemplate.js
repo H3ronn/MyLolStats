@@ -43,6 +43,11 @@ const StyledDescription = styled(Paragraph)`
   width: 80vw;
 `;
 
+const SpellList = styled.ul`
+  display: flex;
+  flex-direction: column;
+`;
+
 
 const ChampionDetailsTemplate = ({ detailsContent }) => {
 
@@ -59,15 +64,14 @@ const ChampionDetailsTemplate = ({ detailsContent }) => {
         ))}
       </StyledCategories>
       <StyledDescription>{informations.lore}</StyledDescription>
+      <Heading>Umiejętności</Heading>
       <div>
-        <Heading>Umiejętności</Heading>
-        <ul>
-          {/* <SpellContainer passive={informations.passive} spells={spells}>{informations.passive.name}</SpellContainer> */}
+        <SpellList>
           <SpellContainer spell={informations.passive} />
           {spells.map(spell => (
             <SpellContainer spell={spell} />
           ))}
-        </ul>
+        </SpellList>
       </div>
       <div>
         <Heading>Statystki</Heading>
