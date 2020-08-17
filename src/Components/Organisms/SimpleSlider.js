@@ -3,7 +3,8 @@ import Slider from "react-slick";
 import styled from 'styled-components';
 
 const StyledAll = styled.div`
-   max-height: 90vh;
+   /* max-height: 90vh; */
+   min-height: 640px;
    padding: 0;
 `;
 
@@ -55,7 +56,8 @@ const SimpleSlider = ({ skins, championId }) => {
 
           <div>
             <StyledImgContainer>
-              <StyledImg src={`/champions/${championId}_0.jpg`} />
+              {/* <StyledImg src={`/champions/${championId}_0.jpg`} /> */}
+              <StyledImg src={`http://ddragon.leagueoflegends.com/cdn/img/champion/loading/${championId}_0.jpg`} />
               <StyledLabel>Podstawowy</StyledLabel>
             </StyledImgContainer>
           </div>
@@ -67,7 +69,8 @@ const SimpleSlider = ({ skins, championId }) => {
             return (
               <div key={skin.id}>
                 <StyledImgContainer >
-                  <StyledImg src={`/champions/${championId}_${skin.num}.jpg`} />
+                  {/* <StyledImg src={`/champions/${championId}_${skin.num}.jpg`} /> */}
+                  <StyledImg src={`http://ddragon.leagueoflegends.com/cdn/img/champion/loading/${championId}_${skin.num}.jpg`} />
                   <StyledLabel>{skin.name}</StyledLabel>
                 </StyledImgContainer>
               </div>

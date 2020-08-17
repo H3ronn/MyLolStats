@@ -45,6 +45,7 @@ const ChampionsView = () => {
         {Names.map((championName) => (
           <Card
             image={`/avatars/${championName}.png`}
+            // image={`http://ddragon.leagueoflegends.com/cdn/10.16.1/img/champion/${championName}.png`}
             key={championName}
             name={championName}
             searchValue={inputValue}

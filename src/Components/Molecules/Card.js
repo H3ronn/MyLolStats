@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { Redirect } from "react-router-dom";
 import styled from "styled-components";
 
-const StyledWrapper = styled.div`
+const StyledWrapper = styled.button`
+  border: none;
   background-color: #f1f1f1;
   width: 200px;
   height: 200px;
@@ -11,6 +12,7 @@ const StyledWrapper = styled.div`
   background-image: url(${({ image }) => `${image}`});
   background-size: 100%;
   box-shadow: 0px 0px 15px 10px #fff5d7;
+  cursor: pointer;
 `;
 
 const Card = ({ image, name, searchValue }) => {

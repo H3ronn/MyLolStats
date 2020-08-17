@@ -42,7 +42,7 @@ const ChampionDetails = ({ match }) => {
     if (query === "Wukong") { query = "MonkeyKing"; }
     try {
       const fetchInformations = await axios.get(
-        `http://ddragon.leagueoflegends.com/cdn/10.15.1/data/pl_PL/champion/${query}.json`
+        `http://ddragon.leagueoflegends.com/cdn/10.16.1/data/pl_PL/champion/${query}.json`
       );
 
       setDetailsContent({
