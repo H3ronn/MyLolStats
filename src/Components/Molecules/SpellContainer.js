@@ -34,17 +34,29 @@ const StyledParagraph = styled(Paragraph)`
 `;
 
 
-const SpellContainer = ({ spell }) => {
+const SpellContainer = ({ spell, type }) => {
+
+
+
+  const costType = type => {
+    if (type === "Mana") {
+      return "Koszt many: "
+    } else if (type === "Energia") {
+      return "Koszt energi: "
+    } else {
+      return null
+    }
+  }
 
   spell.description = spell.description.replace(/(<([^>]+)>)/gi, "");
   return (
     <StyledLi>
-      {console.log(spell)}
       <StyledImg src={`/spells/${spell.image.full}`} alt={spell.name} />
       <StyledContentInfo>
         <StyledHeading as="h3">{spell.name}</StyledHeading>
         <StyledParagraph>{spell.description}</StyledParagraph>
-        {spell.cost && <StyledParagraph>Koszt many/energi: {spell.cost.map(cost => `${cost} / `)}</StyledParagraph>}
+        {spell.cost && <StyledParagraph>{costType(type)}{costType(type) ? spell.cost.map(cost => `${cost} / `) : "Umiejętność darmowa"}</StyledParagraph>}
+        {/* {spell.cost && <StyledParagraph>Koszt many/energi: {spell.cost.map(cost => `${cost} / `)}</StyledParagraph>} */}
         {spell.range && <StyledParagraph>Zasięg: {spell.range && spell.range.map(range => `${range} / `)}</StyledParagraph>}
         {spell.cooldown && <StyledParagraph>Czas odnowienia: {spell.cooldown && spell.cooldown.map(cd => `${cd} / `)}</StyledParagraph>}
       </StyledContentInfo>

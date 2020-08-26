@@ -19,6 +19,10 @@ const StyledCardWrapper = styled.div`
   margin: 0 20px;
 `;
 
+const StyledParagraph = styled(Paragraph)`
+ padding-bottom: 10px;
+`;
+
 const StyledInput = styled(Input)`
   margin-bottom: 50px;
 `;
@@ -33,7 +37,7 @@ const ChampionsView = () => {
   return (
     <StyledWrapper>
       <Heading>Wyszukaj informacje o swoim ulubionym championie</Heading>
-      <Paragraph>Wpisz nazwe championa</Paragraph>
+      <StyledParagraph>Wpisz nazwe championa</StyledParagraph>
       <StyledInput
         type="text"
         name="nickname"

@@ -66,7 +66,7 @@ const ChampionDetails = ({ match }) => {
 
   return (
     <>
-      {/* {console.log(detailsContent.informations)} */}
+      {console.log(detailsContent.informations)}
       {loading ? (<LoadingPage />
       ) : (
           <ChampionDetailsTemplate detailsContent={detailsContent} />

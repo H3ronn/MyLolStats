@@ -16,6 +16,10 @@ const StyledWrapper = styled.div`
   margin-top: -80px;
 `;
 
+const StyledParagraph = styled(Paragraph)`
+  padding: 0 0 20px;
+`;
+
 const SearchView = () => {
   // const TeemoJS = require("teemojs");
   // let api = TeemoJS("RGAPI-7ae9021d-98e9-48d3-b23a-8d65e6e0abd5");
@@ -28,30 +32,31 @@ const SearchView = () => {
   //   .catch((err) => console.log(err));
 
   const apiTest = () => {
-    console.log("strzał do api");
-    axios
-      .get(
-        "http://ddragon.leagueoflegends.com/cdn/10.15.1/data/en_US/champion.json"
-      )
-      .then((result) => {
-        console.log("result");
-        console.log(result);
-        console.log("result");
-      })
-      .catch((err) => {
-        console.log("err");
-        console.log(err);
-        alert(err);
-        console.log("err");
-      });
+    // console.log("strzał do api");
+    // axios
+    //   .get(
+    //     "http://ddragon.leagueoflegends.com/cdn/10.15.1/data/en_US/champion.json"
+    //   )
+    //   .then((result) => {
+    //     console.log("result");
+    //     console.log(result);
+    //     console.log("result");
+    //   })
+    //   .catch((err) => {
+    //     console.log("err");
+    //     console.log(err);
+    //     alert(err);
+    //     console.log("err");
+    //   });
   };
 
   return (
     <StyledWrapper>
       <Heading>Sprawdz swoje statystki w grze League of legends</Heading>
-      <Paragraph>Wpisz swoją nazwę z gry</Paragraph>
-      <Input type="text" name="nickname" placeholder="Twój nickxxx" />
-      <Button onClick={() => apiTest()}>Wyszukaj</Button>
+      <StyledParagraph>Wpisz swoją nazwę z gry</StyledParagraph>
+      <Input type="text" name="nickname" disabled placeholder="Twój nick" />
+      <Button>Wyszukaj</Button>
+      {() => setTimeout(() => alert("Funkcja będzie dostępna w przyszłości"), 100)}
     </StyledWrapper>
   );
 };
