@@ -1,10 +1,10 @@
-import React from "react";
-import styled from "styled-components";
-import Heading from "Components/Atoms/Heading/Heading";
-import Paragraph from "Components/Atoms/Paragraph/Paragraph";
-import Input from "Components/Atoms/Input/Input";
-import Button from "Components/Atoms/Button/Button";
-import axios from "axios";
+import React from 'react';
+import styled from 'styled-components';
+import Heading from 'Components/Atoms/Heading/Heading';
+import Paragraph from 'Components/Atoms/Paragraph/Paragraph';
+import Input from 'Components/Atoms/Input/Input';
+import Button from 'Components/Atoms/Button/Button';
+import axios from 'axios';
 
 const StyledWrapper = styled.div`
   text-align: center;
@@ -56,7 +56,7 @@ const SearchView = () => {
       <StyledParagraph>Wpisz swoją nazwę z gry</StyledParagraph>
       <Input type="text" name="nickname" disabled placeholder="Twój nick" />
       <Button>Wyszukaj</Button>
-      {() => setTimeout(() => alert("Funkcja będzie dostępna w przyszłości"), 100)}
+      {() => setTimeout(() => alert('Funkcja będzie dostępna w przyszłości'), 100)}
     </StyledWrapper>
   );
 };

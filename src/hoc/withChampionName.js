@@ -1,5 +1,5 @@
-import React from "react";
-import PageContext from "context";
+import React from 'react';
+import PageContext from 'hoc/context';
 
 const withChampionName = (Component) => {
   return function contextComponent(props) {

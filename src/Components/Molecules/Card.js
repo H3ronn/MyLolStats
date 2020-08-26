@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import { Redirect } from "react-router-dom";
-import styled from "styled-components";
+import React, { useState } from 'react';
+import { Redirect } from 'react-router-dom';
+import styled from 'styled-components';
 
 const Wrapper = styled.div`
   position: relative;
@@ -26,7 +26,7 @@ const StyledModal = styled.div`
   opacity: 0;
   top: 0;
   color: white;
-  transition: opacity .4s ease, transform .4s ease;
+  transition: opacity 0.4s ease, transform 0.4s ease;
   font-weight: bold;
   text-shadow: 1px 1px 5px #feb300, -1px -1px 5px #feb300, -1px 0px 5px #feb300,
     -0px -1px 5px #feb300, 0px 1px 5px #feb300, 1px 0px 5px #feb300;
@@ -49,12 +49,18 @@ const Card = ({ image, name, searchValue }) => {
   if (name.toLowerCase().includes(searchValue.toLowerCase())) {
     return (
       <Wrapper>
-        <StyledModal onClick={() => { alert("elo") }}>Dodaj do ulubionych</StyledModal>
+        <StyledModal
+          onClick={() => {
+            alert('elo');
+          }}
+        >
+          Dodaj do ulubionych
+        </StyledModal>
         <StyledCardWrapper image={image} onClick={viewDetails} />
       </Wrapper>
-    )
+    );
   } else {
-    return "";
+    return '';
   }
 };
 
