@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from 'store';
-import ChampionsView from './ChampionsView';
+import ChampionsView from 'Views/ChampionsView';
 import ChampionDetails from './ChampionDetails';
 import SearchView from './SearchView';
 import MainTemplate from '../Templates/MainTemplate';

@@ -12,7 +12,16 @@ const StyledWrapper = styled.div`
   min-height: 100vh;
 `;
 
-const StyledCardWrapper = styled.div`
+const FavouriteWrapper = styled.div``;
+
+const FavouriteCardWrapper = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin: 0 20px 50px;
+`;
+
+const CardWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
@@ -27,10 +36,10 @@ const StyledInput = styled(Input)`
   margin-bottom: 50px;
 `;
 
-const ChampionsViewTemplate = () => {
+const ChampionsViewTemplate = ({ favouriteChampList }) => {
   const [inputValue, setInputValue] = useState('');
-
-  const changeInputValue = (e) => {
+  console.log(favouriteChampList);
+  const changeInputValue = e => {
     setInputValue(e.target.value);
   };
 
@@ -45,8 +54,24 @@ const ChampionsViewTemplate = () => {
         value={inputValue}
         onChange={changeInputValue}
       />
-      <StyledCardWrapper>
-        {Names.map((championName) => (
+      {favouriteChampList.length ? (
+        <FavouriteWrapper>
+          <StyledParagraph>Ulubione</StyledParagraph>
+          <FavouriteCardWrapper>
+            {favouriteChampList.map(championName => (
+              <Card
+                image={`/avatars/${championName}.png`}
+                // image={`http://ddragon.leagueoflegends.com/cdn/10.16.1/img/champion/${championName}.png`}
+                key={`${championName}fav`}
+                name={championName}
+                searchValue={inputValue}
+              />
+            ))}
+          </FavouriteCardWrapper>
+        </FavouriteWrapper>
+      ) : null}
+      <CardWrapper>
+        {Names.map(championName => (
           <Card
             image={`/avatars/${championName}.png`}
             // image={`http://ddragon.leagueoflegends.com/cdn/10.16.1/img/champion/${championName}.png`}
@@ -55,7 +80,7 @@ const ChampionsViewTemplate = () => {
             searchValue={inputValue}
           />
         ))}
-      </StyledCardWrapper>
+      </CardWrapper>
     </StyledWrapper>
   );
 };

@@ -1,10 +1,11 @@
 import React from 'react';
-import styled, { keyframes } from "styled-components";
-import Heading from "Components/Atoms/Heading/Heading";
-import Paragraph from "Components/Atoms/Paragraph/Paragraph";
-import Button from "Components/Atoms/Button/Button";
-import SimpleSlider from "Components/Organisms/SimpleSlider";
+import styled, { keyframes } from 'styled-components';
+import Heading from 'Components/Atoms/Heading/Heading';
+import Paragraph from 'Components/Atoms/Paragraph/Paragraph';
+import Button from 'Components/Atoms/Button/Button';
+import SimpleSlider from 'Components/Organisms/SimpleSlider';
 import SpellContainer from 'Components/Molecules/SpellContainer';
+import { connect } from 'react-redux';
 
 const appearance = keyframes`
   from {
@@ -23,13 +24,13 @@ const StyledWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  animation: ${appearance} .5s;
+  animation: ${appearance} 0.5s;
 `;
 
 const StyledParagraph = styled(Paragraph)`
   font-size: 15px;
   font-weight: 500;
-  padding: 10px 10px 10px;;
+  padding: 10px 10px 10px; ;
 `;
 
 const StyledHeadingFirst = styled(Heading)`
@@ -61,21 +62,24 @@ const SpellList = styled.ul`
   flex-direction: column;
 `;
 
-
-const ChampionDetailsTemplate = ({ detailsContent }) => {
-
+const ChampionDetailsTemplate = ({ detailsContent, addFavouriteChamp, favouriteChampList }) => {
   const { informations, spells, stats, skins } = detailsContent;
 
   return (
     <StyledWrapper>
       <StyledHeadingFirst as="h1">{informations.name}</StyledHeadingFirst>
       <StyledParagraph>{informations.title}</StyledParagraph>
-      <StyledButton>Dodaj do ulubionych</StyledButton>
+      <StyledButton
+        onClick={() => {
+          addFavouriteChamp(informations.id);
+        }}
+      >
+        {favouriteChampList.includes(informations.id) ? 'Usuń z ulubionych' : 'Dodaj do ulubionych'}
+      </StyledButton>
       <SimpleSlider skins={skins} championId={informations.id} />
       <StyledCategories>
-        {informations.tags && informations.tags.map(role => (
-          <StyledParagraph key={role}>{role}</StyledParagraph>
-        ))}
+        {informations.tags &&
+          informations.tags.map(role => <StyledParagraph key={role}>{role}</StyledParagraph>)}
       </StyledCategories>
       <StyledHeading>Historia</StyledHeading>
       <StyledDescription>{informations.lore}</StyledDescription>
@@ -88,10 +92,16 @@ const ChampionDetailsTemplate = ({ detailsContent }) => {
       </SpellList>
       <div>
         <Heading>Statystki</Heading>
-        {Object.keys(stats).map(key => (<Paragraph key={key}>{key} : {stats[key]}</Paragraph>))}
+        {Object.keys(stats).map(key => (
+          <Paragraph key={key}>
+            {key} : {stats[key]}
+          </Paragraph>
+        ))}
       </div>
     </StyledWrapper>
   );
 };
 
-export default ChampionDetailsTemplate;
+const mapStateToProps = state => ({ favouriteChampList: state });
+
+export default connect(mapStateToProps)(ChampionDetailsTemplate);

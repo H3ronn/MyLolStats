@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import styled from 'styled-components';
+import { connect } from 'react-redux';
+import { addFavouriteChamp as addFavouriteChampAction } from 'actions';
 
 const Wrapper = styled.div`
   position: relative;
@@ -37,7 +39,7 @@ const StyledModal = styled.div`
   }
 `;
 
-const Card = ({ image, name, searchValue }) => {
+const Card = ({ image, name, searchValue, addFavouriteChamp, favouriteChampList }) => {
   const [redirect, setRedirect] = useState(false);
 
   const viewDetails = () => setRedirect(true);
@@ -51,10 +53,10 @@ const Card = ({ image, name, searchValue }) => {
       <Wrapper>
         <StyledModal
           onClick={() => {
-            alert('elo');
+            addFavouriteChamp(name);
           }}
         >
-          Dodaj do ulubionych
+          {favouriteChampList.includes(name) ? 'Usuń z ulubionych' : 'Dodaj do ulubionych'}
         </StyledModal>
         <StyledCardWrapper image={image} onClick={viewDetails} />
       </Wrapper>
@@ -64,4 +66,10 @@ const Card = ({ image, name, searchValue }) => {
   }
 };
 
-export default Card;
+const mapStateToProps = state => ({ favouriteChampList: state });
+
+const mapDispatchToProps = dispatch => ({
+  addFavouriteChamp: championName => dispatch(addFavouriteChampAction(championName)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Card);

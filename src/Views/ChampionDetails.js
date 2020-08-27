@@ -1,25 +1,27 @@
-import React, { useEffect, useState, useReducer } from "react";
-import axios from "axios";
-import { LeagueNames as Names } from "ChampionsNames";
+import React, { useEffect, useState, useReducer } from 'react';
+import axios from 'axios';
+import { LeagueNames as Names } from 'ChampionsNames';
 import LoadingPage from 'Components/Molecules/LoadingPage';
 import ChampionDetailsTemplate from 'Templates/ChampionDetailsTemplate';
+import { connect } from 'react-redux';
+import { addFavouriteChamp as addFavouriteChampAction } from 'actions';
 
-const ChampionDetails = ({ match }) => {
+const ChampionDetails = ({ match, addFavouriteChamp }) => {
   const {
     params: { name },
   } = match;
 
-  const [fetchQuery] = Names.filter((champname) =>
-    champname.toLowerCase().includes(name)
-  );
+  const [fetchQuery] = Names.filter((champname) => champname.toLowerCase().includes(name));
 
-  const [detailsContent, setDetailsContent] = useReducer((state, newState) => ({ ...state, ...newState }),
+  const [detailsContent, setDetailsContent] = useReducer(
+    (state, newState) => ({ ...state, ...newState }),
     {
-      informations: "",
-      stats: "",
-      skins: "",
-      spells: ""
-    });
+      informations: '',
+      stats: '',
+      skins: '',
+      spells: '',
+    },
+  );
 
   const [loading, setLoading] = useState(true);
 
@@ -39,10 +41,12 @@ const ChampionDetails = ({ match }) => {
   // };
 
   const getInformations = async (query) => {
-    if (query === "Wukong") { query = "MonkeyKing"; }
+    if (query === 'Wukong') {
+      query = 'MonkeyKing';
+    }
     try {
       const fetchInformations = await axios.get(
-        `http://ddragon.leagueoflegends.com/cdn/10.16.1/data/pl_PL/champion/${query}.json`
+        `http://ddragon.leagueoflegends.com/cdn/10.16.1/data/pl_PL/champion/${query}.json`,
       );
 
       setDetailsContent({
@@ -53,7 +57,6 @@ const ChampionDetails = ({ match }) => {
       });
 
       setLoading(false);
-
     } catch (error) {
       console.log(error);
     }
@@ -61,18 +64,26 @@ const ChampionDetails = ({ match }) => {
 
   useEffect(() => {
     getInformations(fetchQuery);
+    console.log(fetchQuery);
   }, [fetchQuery]);
-
 
   return (
     <>
       {console.log(detailsContent.informations)}
-      {loading ? (<LoadingPage />
+      {loading ? (
+        <LoadingPage />
       ) : (
-          <ChampionDetailsTemplate detailsContent={detailsContent} />
-        )}
+        <ChampionDetailsTemplate
+          detailsContent={detailsContent}
+          addFavouriteChamp={addFavouriteChamp}
+        />
+      )}
     </>
   );
 };
 
-export default ChampionDetails;
+const mapDispatchToProps = (dispatch) => ({
+  addFavouriteChamp: (championName) => dispatch(addFavouriteChampAction(championName)),
+});
+
+export default connect(null, mapDispatchToProps)(ChampionDetails);

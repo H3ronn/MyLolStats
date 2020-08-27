@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
+import { connect } from 'react-redux';
 import ChampionsViewTemplate from 'Templates/ChampionsViewTemplate';
-import Card from 'Components/Molecules/Card';
-import Heading from 'Components/Atoms/Heading/Heading';
-import Paragraph from 'Components/Atoms/Paragraph/Paragraph';
-import Input from 'Components/Atoms/Input/Input';
-import { LeagueNames as Names } from 'ChampionsNames';
 
-const ChampionsView = () => {
-  return <ChampionsViewTemplate />;
+const ChampionsView = ({ favouriteChampList }) => {
+  // console.log(props.state);
+  return <ChampionsViewTemplate favouriteChampList={favouriteChampList} />;
 };
 
-export default ChampionsView;
+const mapStateToProps = state => {
+  return { favouriteChampList: state };
+};
+
+export default connect(mapStateToProps)(ChampionsView);
