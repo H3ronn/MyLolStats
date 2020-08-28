@@ -38,7 +38,7 @@ const StyledInput = styled(Input)`
 
 const ChampionsViewTemplate = ({ favouriteChampList }) => {
   const [inputValue, setInputValue] = useState('');
-  console.log(favouriteChampList);
+
   const changeInputValue = e => {
     setInputValue(e.target.value);
   };

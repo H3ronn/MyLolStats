@@ -21,9 +21,6 @@ const StyledParagraph = styled(Paragraph)`
 `;
 
 const SearchView = () => {
-  // const TeemoJS = require("teemojs");
-  // let api = TeemoJS("RGAPI-7ae9021d-98e9-48d3-b23a-8d65e6e0abd5");
-
   // api
   //   .get("eun1", "summoner.getBySummonerName", "h3ron")
   //   .then((data) =>

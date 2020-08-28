@@ -6,12 +6,12 @@ import ChampionDetailsTemplate from 'Templates/ChampionDetailsTemplate';
 import { connect } from 'react-redux';
 import { addFavouriteChamp as addFavouriteChampAction } from 'actions';
 
-const ChampionDetails = ({ match, addFavouriteChamp }) => {
+const ChampionDetails = ({ match, addFavouriteChamp, favouriteChampList }) => {
   const {
     params: { name },
   } = match;
 
-  const [fetchQuery] = Names.filter((champname) => champname.toLowerCase().includes(name));
+  const [fetchQuery] = Names.filter(champname => champname.toLowerCase().includes(name));
 
   const [detailsContent, setDetailsContent] = useReducer(
     (state, newState) => ({ ...state, ...newState }),
@@ -40,7 +40,7 @@ const ChampionDetails = ({ match, addFavouriteChamp }) => {
   //     });
   // };
 
-  const getInformations = async (query) => {
+  const getInformations = async query => {
     if (query === 'Wukong') {
       query = 'MonkeyKing';
     }
@@ -67,6 +67,10 @@ const ChampionDetails = ({ match, addFavouriteChamp }) => {
     console.log(fetchQuery);
   }, [fetchQuery]);
 
+  useEffect(() => {
+    localStorage.setItem('myState', favouriteChampList);
+  });
+
   return (
     <>
       {console.log(detailsContent.informations)}
@@ -82,8 +86,12 @@ const ChampionDetails = ({ match, addFavouriteChamp }) => {
   );
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  addFavouriteChamp: (championName) => dispatch(addFavouriteChampAction(championName)),
+const mapStateToProps = state => {
+  return { favouriteChampList: state };
+};
+
+const mapDispatchToProps = dispatch => ({
+  addFavouriteChamp: championName => dispatch(addFavouriteChampAction(championName)),
 });
 
-export default connect(null, mapDispatchToProps)(ChampionDetails);
+export default connect(mapStateToProps, mapDispatchToProps)(ChampionDetails);
