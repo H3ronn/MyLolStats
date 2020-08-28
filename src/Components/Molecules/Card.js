@@ -1,13 +1,35 @@
 import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { connect } from 'react-redux';
 import { addFavouriteChamp as addFavouriteChampAction } from 'actions';
+
+const appearance = keyframes`
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+`;
+
+const disappearance = keyframes`
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+`;
 
 const Wrapper = styled.div`
   position: relative;
   cursor: pointer;
   margin: 20px;
+  animation: ${appearance} 1.5s;
+  transition: all 0.5s;
 `;
 
 const StyledCardWrapper = styled.button`
@@ -39,10 +61,21 @@ const StyledModal = styled.div`
   }
 `;
 
-const Card = ({ image, name, searchValue, addFavouriteChamp, favouriteChampList }) => {
+const Card = ({ image, name, searchValue, addFavouriteChamp, favouriteChampList, isFavourite }) => {
   const [redirect, setRedirect] = useState(false);
 
   const viewDetails = () => setRedirect(true);
+
+  const disapear = event => {
+    // favouriteChampList.includes(name) ? (event.target.style = 'opacity: 0') : null;
+
+    event.target.parentElement.style = 'opacity: 0';
+    setTimeout(() => {
+      addFavouriteChamp(name);
+    }, 500);
+
+    console.log(event.target);
+  };
 
   if (redirect) {
     return <Redirect to={`/champions/${name.toLowerCase()}`} />;
@@ -52,9 +85,13 @@ const Card = ({ image, name, searchValue, addFavouriteChamp, favouriteChampList 
     return (
       <Wrapper>
         <StyledModal
-          onClick={() => {
-            addFavouriteChamp(name);
-          }}
+          onClick={
+            isFavourite
+              ? disapear
+              : () => {
+                  addFavouriteChamp(name);
+                }
+          }
         >
           {favouriteChampList.includes(name) ? 'Usuń z ulubionych' : 'Dodaj do ulubionych'}
         </StyledModal>
